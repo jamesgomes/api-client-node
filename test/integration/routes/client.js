@@ -118,5 +118,39 @@ describe('Routes: Client', () => {
                 });
         });
     });
+    
+        describe('PUT /api/client/update', () => {
+        it('should update a client', done => {
+
+            const client = {
+                "name": "James Moreira Gomes",
+                "email": "jamesgomes.sistemas@gmail.com",
+                "cpf": "16214625791",
+                "maritalStatus": "Casado",
+                "phoneNumbers": [
+                    {
+                        "number": "31-88447884",
+                    }
+                ],
+                "addresses": [
+                    {
+                        "street": "Rua Minas Novas, 118",
+                        "city": "Sabará",
+                        "state": "Minas Gerais",
+                        "zip": "34.600-650",
+                    }
+                ]
+            };
+
+            request
+                .put('/api/client/update')
+                .set('Authorization', `JWT ${token}`)
+                .send(client)
+                .end((err, res) => {
+                    expect(res.body.data.cpf).to.eql(client.cpf);
+                    done(err);
+                });
+        });
+    });
 
 });
